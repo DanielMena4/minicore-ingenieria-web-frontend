@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 
-  private api = 'http://18.216.108.56:3000';
+  private api = 'https://minicore-ingenieria-web-backend.onrender.com';
 
   constructor(private http: HttpClient) { }
 
