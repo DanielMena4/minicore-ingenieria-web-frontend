@@ -1,12 +1,49 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ApiService } from './services/api.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrls: ['./app.css']
 })
 export class App {
-  protected readonly title = signal('frontend');
+
+  inicio: string = '';
+  fin: string = '';
+  resultados: any[] = [];
+
+  loading = false;
+  error = '';
+
+  constructor(private api: ApiService, private cd: ChangeDetectorRef) { }
+
+  buscar() {
+    this.error = '';
+
+    if (!this.inicio || !this.fin) {
+      this.error = 'Selecciona ambas fechas';
+      return;
+    }
+
+    this.loading = true;
+
+    this.api.getComisiones(this.inicio, this.fin)
+      .subscribe({
+        next: (data) => {
+          this.resultados = data;
+          this.loading = false;
+          this.cd.detectChanges();
+        },
+        error: () => {
+          this.error = 'Error al conectar con el backend';
+          this.loading = false;
+        }
+      });
+  }
+
 }

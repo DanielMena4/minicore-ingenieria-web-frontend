@@ -1,0 +1,33 @@
+.container {
+    max-width: 800px;
+    margin: auto;
+    font-family: Arial;
+}
+
+.form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+button {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+.error {
+    color: red;
+}
